@@ -1,0 +1,8 @@
+{
+    "project_title": "Cookiecutter Personal",
+    "project_slug": "cookiecutter_personal",
+    "project_description": "Primer proyecto con Cookiecutter.",
+    "project_author_name": "RRB",
+    "project_packages": ["All, Minimal"],
+    "python_version": "3.7"
+}
