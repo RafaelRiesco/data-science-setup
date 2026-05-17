@@ -1,6 +1,34 @@
-def main():
-    print("Hello from poo!")
+historial_prestamos = []
+
+class Libro:
+    def __init__(self, titulo, autor, isbn, disponible=True):
+        self.titulo = titulo
+        self.autor = autor
+        self.isbn = isbn
+        self.disponible = disponible
+
+    def __str__(self):
+        return f"{self.titulo} - {self.autor} - ISBN: {self.isbn} - Disponible: {self.disponible}"
+
+    def __repr__(self):
+        return self.__str__()
+
+    def prestar(self):
+        if self.disponible:
+            self.disponible = False
+            historial_prestamos.append(self)
+            return f"{self.titulo}: prestado exitosamente."
+        else:
+            return f"El libro {self.titulo} no esta disponible"
+
+    def devolver(self):
+        self.disponible = True
+        return f"{self.titulo} se ha devuelto"
 
 
-if __name__ == "__main__":
-    main()
+libro1 = Libro("Cien años de soledad", "Gabriel García Márquez", "978-0-06-088328-7", True)
+libro2 = Libro("El Principito", "Antoine de Saint-Exupéry", "978-0-15-601219-5", False)
+
+print(libro1.prestar())
+print(libro2.prestar())
+print(historial_prestamos)
