@@ -1,3 +1,9 @@
+from typing import Protocol
+
+class UsuarioProtocol(Protocol):
+    def solicitar_prestamo(self, titulo: str) -> str: 
+        ...
+
 class Usuario:
     def __init__(self, nombre, cedula):
         self.nombre = nombre
@@ -39,22 +45,13 @@ class Profesor(Usuario):
         return f"{self.nombre} ha solicitado el libro '{titulo}'"
     
 
+from main import Libro
 estudiante = Estudiante("Luis", "123456", "Ingeniería")
 profesor = Profesor("Ana", "987654")
+estudiante2 = Estudiante("Maria", "654321", "Medicina")
+libro1 = Libro("Cien años de soledad", "Gabriel García Márquez", "978-0-06-088328-7", True)
 
-# Pruebas de préstamo
-print(estudiante.solicitar_prestamo("El principito"))
-print(estudiante.solicitar_prestamo("1984"))
-print(estudiante.solicitar_prestamo("El quijote"))
-print(estudiante.solicitar_prestamo("La biblia"))
+usuarios : list[UsuarioProtocol] = [estudiante, profesor, estudiante2, libro1]
 
-print(profesor.solicitar_prestamo("El principito"))
-print(profesor.solicitar_prestamo("1984"))
-print(profesor.solicitar_prestamo("El quijote"))
-print(profesor.solicitar_prestamo("La biblia"))
-
-print(estudiante.devolver_libro("El principito"))
-print(estudiante.devolver_libro("1984"))
-
-print(len(estudiante.libros_prestados))  # Debe ser 3
-print(len(profesor.libros_prestados))    # Debe ser 4
+for usuario in usuarios:
+   print(usuario.solicitar_prestamo("1984"))
