@@ -51,7 +51,7 @@ profesor = Profesor("Ana", "987654")
 estudiante2 = Estudiante("Maria", "654321", "Medicina")
 libro1 = Libro("Cien años de soledad", "Gabriel García Márquez", "978-0-06-088328-7", True)
 
-usuarios : list[UsuarioProtocol] = [estudiante, profesor, estudiante2, libro1]
+usuarios : list[UsuarioProtocol] = [estudiante, profesor, estudiante2]
 
 for usuario in usuarios:
    print(usuario.solicitar_prestamo("1984"))
