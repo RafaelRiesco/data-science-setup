@@ -34,6 +34,10 @@ class Libro:
 libro1 = Libro("Cien años de soledad", "Gabriel García Márquez", "978-0-06-088328-7", True)
 libro2 = Libro("El Principito", "Antoine de Saint-Exupéry", "978-0-15-601219-5", False)
 
-print(libro1.prestar())
-print(libro2.prestar())
-print(historial_prestamos)
+libro1.prestar()
+libro1.devolver()
+
+libro1.prestar()
+libro1.devolver()
+
+print(historial_prestamos.count(libro1))
