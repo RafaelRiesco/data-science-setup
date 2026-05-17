@@ -6,6 +6,13 @@ class Usuario:
 
     def solicitar_prestamo(self, titulo):
         return f"{self.nombre} ha solicitado el libro '{titulo}'"
+    
+    def devolver_libro(self, titulo):
+        if titulo in self.libros_prestados:
+            self.libros_prestados.remove(titulo)
+            return f"{self.nombre} ha devuelto el libro '{titulo}'"
+        else:            
+            return f"{self.nombre} no tiene el libro '{titulo}' prestado"
         
 class Estudiante(Usuario):
     def __init__(self, nombre, cedula, carrera):
@@ -19,7 +26,8 @@ class Estudiante(Usuario):
             self.libros_prestados.append(titulo)
             return f"{self.nombre} ha solicitado el libro '{titulo}'"
         else:
-            return f"{self.nombre} ha alcanzado el límite de préstamos. Limite alcanzado: {self.limite_prestamos}."
+            return f"{self.nombre} ha alcanzado el límite de préstamos. Limite alcanzado: {self.limite_prestamos}"
+    
 
 class Profesor(Usuario):
     def __init__(self, nombre, cedula):
@@ -35,15 +43,18 @@ estudiante = Estudiante("Luis", "123456", "Ingeniería")
 profesor = Profesor("Ana", "987654")
 
 # Pruebas de préstamo
-print(estudiante.solicitar_prestamo("Python básico"))
-print(estudiante.solicitar_prestamo("Python intermedio"))
-print(estudiante.solicitar_prestamo("Python avanzado"))
-print(estudiante.solicitar_prestamo("Python Django"))  # Debe indicar límite alcanzado: 3
+print(estudiante.solicitar_prestamo("El principito"))
+print(estudiante.solicitar_prestamo("1984"))
+print(estudiante.solicitar_prestamo("El quijote"))
+print(estudiante.solicitar_prestamo("La biblia"))
 
-print(profesor.solicitar_prestamo("Python básico"))
-print(profesor.solicitar_prestamo("Python intermedio"))
-print(profesor.solicitar_prestamo("Python avanzado"))
-print(profesor.solicitar_prestamo("Python Django"))
+print(profesor.solicitar_prestamo("El principito"))
+print(profesor.solicitar_prestamo("1984"))
+print(profesor.solicitar_prestamo("El quijote"))
+print(profesor.solicitar_prestamo("La biblia"))
+
+print(estudiante.devolver_libro("El principito"))
+print(estudiante.devolver_libro("1984"))
 
 print(len(estudiante.libros_prestados))  # Debe ser 3
 print(len(profesor.libros_prestados))    # Debe ser 4
