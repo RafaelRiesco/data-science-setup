@@ -24,7 +24,12 @@ class Libro:
     def devolver(self):
         self.disponible = True
         return f"{self.titulo} se ha devuelto"
-
+    
+    def es_popular(self):
+        if historial_prestamos.count(self) > 5:
+            return f"{self.titulo} es popular"
+        else:
+            return f"{self.titulo} no es popular"
 
 libro1 = Libro("Cien años de soledad", "Gabriel García Márquez", "978-0-06-088328-7", True)
 libro2 = Libro("El Principito", "Antoine de Saint-Exupéry", "978-0-15-601219-5", False)
