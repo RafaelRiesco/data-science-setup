@@ -45,13 +45,13 @@ class Profesor(Usuario):
         return f"{self.nombre} ha solicitado el libro '{titulo}'"
     
 
-from main import Libro
-estudiante = Estudiante("Luis", "123456", "Ingeniería")
-profesor = Profesor("Ana", "987654")
-estudiante2 = Estudiante("Maria", "654321", "Medicina")
-libro1 = Libro("Cien años de soledad", "Gabriel García Márquez", "978-0-06-088328-7", True)
 
-usuarios : list[UsuarioProtocol] = [estudiante, profesor, estudiante2]
+if __name__ == "__main__":
+    estudiante = Estudiante("Luis", "123456", "Ingeniería")
+    profesor = Profesor("Ana", "987654")
+    estudiante2 = Estudiante("Maria", "654321", "Medicina")
 
-for usuario in usuarios:
-   print(usuario.solicitar_prestamo("1984"))
+    usuarios : list[UsuarioProtocol] = [estudiante, profesor, estudiante2]
+
+    for usuario in usuarios:
+        print(usuario.solicitar_prestamo("1984"))

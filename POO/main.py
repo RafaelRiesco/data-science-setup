@@ -1,3 +1,14 @@
+from typing import Protocol
+
+from usuarios import UsuarioProtocol
+
+class LibroProtocol(Protocol):
+    disponible: bool              # ← agregar el atributo
+    titulo: str                   # ← este también lo usas fuera
+    
+    def prestar(self) -> str: ...
+    def calcular_duracion(self) -> str: ...
+
 class Libro:
     def __init__(self, titulo, autor, isbn, disponible=True):
         self.titulo = titulo
@@ -36,18 +47,48 @@ class Libro:
     def set_veces_prestado(self, veces_prestado):
         self.__veces_prestado = veces_prestado            
 
-libro1 = Libro("Cien años de soledad", "Gabriel García Márquez", "978-0-06-088328-7", True)
-libro2 = Libro("El Principito", "Antoine de Saint-Exupéry", "978-0-15-601219-5", False)
+class Biblioteca:
+    def __init__(self, nombre) -> None:
+        self.nombre = nombre
+        self.libros: list[LibroProtocol] = []    # ← lista de LibroProtocol
+        self.usuarios: list[UsuarioProtocol] = [] # ← lista de UsuarioProtocol}
+    
+    def libros_disponibles(self):
+        return [
+        libro.titulo
+        for libro in self.libros
+        if libro.disponible 
+        ]
+    
+class LibroFisico(Libro):
+    def __init__(self, titulo, autor, isbn, disponible=True, tapa_dura= True):
+        super().__init__(titulo, autor, isbn, disponible)
+        self.tapa_dura = tapa_dura
+    
+    def calcular_duracion(self):
+        if self.tapa_dura:
+            return f"La duración del préstamo de {self.titulo} es de 30 días"
+        else:
+            return f"La duración del préstamo de {self.titulo} es de 14 días"
+        
+class LibroDigital(Libro):
+    def __init__(self, titulo, autor, isbn, disponible=True, formato="PDF"):
+        super().__init__(titulo, autor, isbn, disponible)
+        self.formato = formato
+    
+    def calcular_duracion(self):
+        if self.formato == "PDF":
+            return f"La duración del préstamo de {self.titulo} es de 14 días"
+        else:  
+            return f"La duración del préstamo de {self.titulo} es de 7 días"
+    
 
+if __name__ == "__main__":
+    libro1 = LibroFisico("Cien años de soledad", "Gabriel García Márquez", "978-0-06-088328-7", True, True)
+    libro2 = LibroDigital("1984", "George Orwell", "978-0-452-28423-4", True, "EPUB")
+    libro3 = LibroDigital("To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-4", False, "PDF")
 
-libro1.prestar()
-libro1.devolver()
+    biblioteca = Biblioteca("Biblioteca Central")
+    biblioteca.libros = [libro1, libro2, libro3]
 
-libro1.prestar()
-libro1.devolver()
-print(libro1.prestar())
-print(libro1.prestar())
-print(libro1.get_veces_prestado())
-
-libro1.set_veces_prestado(10)
-print(libro1.get_veces_prestado())
+    print(biblioteca.libros_disponibles())
