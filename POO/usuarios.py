@@ -44,14 +44,3 @@ class Profesor(Usuario):
         self.libros_prestados.append(titulo)
         return f"{self.nombre} ha solicitado el libro '{titulo}'"
     
-
-
-if __name__ == "__main__":
-    estudiante = Estudiante("Luis", "123456", "Ingeniería")
-    profesor = Profesor("Ana", "987654")
-    estudiante2 = Estudiante("Maria", "654321", "Medicina")
-
-    usuarios : list[UsuarioProtocol] = [estudiante, profesor, estudiante2]
-
-    for usuario in usuarios:
-        print(usuario.solicitar_prestamo("1984"))
