@@ -1,6 +1,7 @@
 from libros import LibroFisico, LibroDigital
 from usuarios import Estudiante, Profesor, UsuarioProtocol
 from biblioteca import Biblioteca
+from exceptions import BibliotecaError
 
 biblioteca = Biblioteca("Biblioteca Central")
 
@@ -17,4 +18,13 @@ libro3 = LibroDigital("To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-4"
 
 biblioteca.libros = [libro1, libro2, libro3]
 
-print(biblioteca.libros)
+#print(biblioteca.libros)
+
+try:
+    resultado = estudiante.solicitar_prestamo(None)
+except BibliotecaError as e:
+    print(f"Error: {e}, {type(e)}") 
+    print("Error: El título del libro no puede ser None")
+
+resultado = estudiante.solicitar_prestamo("Cien años de soledad")
+print(resultado)

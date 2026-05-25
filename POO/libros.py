@@ -1,4 +1,5 @@
 from typing import Protocol
+from exceptions import LibroNoDisponibleError
 
 class LibroProtocol(Protocol):
     disponible: bool              # ← agregar el atributo
@@ -22,6 +23,8 @@ class Libro:
         return self.__str__()
 
     def prestar(self):
+        if not self.disponible:
+            raise LibroNoDisponibleError(f"El libro {self.titulo} no está disponible")
         if self.disponible:
             self.disponible = False
             self.__veces_prestado += 1

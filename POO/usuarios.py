@@ -1,4 +1,5 @@
 from typing import Protocol
+from exceptions import TituloInvalidoError
 
 class UsuarioProtocol(Protocol):
     def solicitar_prestamo(self, titulo: str) -> str: 
@@ -28,12 +29,13 @@ class Estudiante(Usuario):
     
     
     def solicitar_prestamo(self, titulo):
+        if not titulo:
+            raise TituloInvalidoError("El título del libro no puede ser None")
         if len(self.libros_prestados) < self.limite_prestamos:
             self.libros_prestados.append(titulo)
             return f"{self.nombre} ha solicitado el libro '{titulo}'"
         else:
-            return f"{self.nombre} ha alcanzado el límite de préstamos. Limite alcanzado: {self.limite_prestamos}"
-    
+            return f"{self.nombre} ha alcanzado el límite de préstamos. Limite alcanzado: {self.limite_prestamos}"    
 
 class Profesor(Usuario):
     def __init__(self, nombre, cedula):
