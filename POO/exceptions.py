@@ -9,3 +9,7 @@ class TituloInvalidoError(BibliotecaError):
 class LibroNoDisponibleError(BibliotecaError):
     """Excepción para libros no disponibles."""
     pass
+
+class UsuarioNoEncontradoError(BibliotecaError):
+    """Excepción para usuarios no encontrados."""
+    pass
