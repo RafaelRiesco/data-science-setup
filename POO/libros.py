@@ -70,3 +70,4 @@ class LibroDigital(Libro):
         else:  
             return f"La duración del préstamo de {self.titulo} es de 7 días"
     
+ 

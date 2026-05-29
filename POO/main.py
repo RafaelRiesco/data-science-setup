@@ -1,21 +1,14 @@
-from exceptions import UsuarioNoEncontradoError
-from libros import LibroFisico, LibroDigital
-from usuarios import Estudiante, Profesor
+from exceptions import LibroNoDisponibleError, UsuarioNoEncontradoError
+from usuarios import  Profesor
 from biblioteca import Biblioteca
-
+from data import data_libros, data_estudiantes
 
 biblioteca = Biblioteca("Biblioteca Central")
 
-estudiante = Estudiante("Luis", "123456", "Ingeniería")
 profesor = Profesor("Ana", "987654")
-estudiante2 = Estudiante("Maria", "654321", "Medicina")
 
-libro1 = LibroFisico("Cien años de soledad", "Gabriel García Márquez", "978-0-06-088328-7", True, True)
-libro2 = LibroDigital("1984", "George Orwell", "978-0-452-28423-4", True, "EPUB")
-libro3 = LibroDigital("To Kill a Mockingbird", "Harper Lee", "978-0-06-112008-4", False, "PDF")
-
-biblioteca.usuarios = [estudiante, profesor, estudiante2]
-biblioteca.libros = [libro1, libro2, libro3]
+biblioteca.usuarios = [profesor] + data_estudiantes
+biblioteca.libros = data_libros
 
 
 print("Bienvenido a la Biblioteca Central")
@@ -28,4 +21,20 @@ try:
     usuario = biblioteca.buscar_usuario(cedula)
     print(f"Usuario encontrado: {usuario.nombre}")
 except UsuarioNoEncontradoError as e:
+    print(f"Error: {e}")
+
+titulo = input("Ingrese el título del libro que desea buscar: ")
+try:    
+    libro = biblioteca.buscar_libro(titulo)
+    print(f"Libro encontrado: {libro.titulo} por {libro.autor}")
+except LibroNoDisponibleError as e:
+    print(f"Error: {e}")
+
+resultado = usuario.solicitar_prestamo(titulo)
+print(resultado)
+
+try:
+    resultado_prestamo = libro.prestar()
+    print(resultado_prestamo)
+except LibroNoDisponibleError as e:
     print(f"Error: {e}")

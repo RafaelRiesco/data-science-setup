@@ -1,11 +1,17 @@
 from typing import Protocol
 from exceptions import TituloInvalidoError
+from abc import ABC, abstractmethod
 
 class UsuarioProtocol(Protocol):
     def solicitar_prestamo(self, titulo: str) -> str: 
         ...
 
-class Usuario:
+class UsuarioBase(ABC):
+    @abstractmethod
+    def solicitar_prestamo(self):
+        pass
+    
+class Usuario(UsuarioBase):
     def __init__(self, nombre, cedula):
         self.nombre = nombre
         self.cedula = cedula

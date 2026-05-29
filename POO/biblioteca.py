@@ -1,6 +1,6 @@
 from libros import LibroProtocol
 from usuarios import UsuarioProtocol
-from exceptions import UsuarioNoEncontradoError
+from exceptions import LibroNoDisponibleError, UsuarioNoEncontradoError
 
 class Biblioteca:
     def __init__(self, nombre) -> None:
@@ -17,5 +17,11 @@ class Biblioteca:
                 return usuario
         raise UsuarioNoEncontradoError(f"Usuario con cédula {cedula} no encontrado")
     
-    def agregar_libro(self, libro: LibroProtocol):
+    def agregar_libro(self, libro: LibroProtocol) -> None:
         self.libros.append(libro)
+
+    def buscar_libro(self, titulo) -> LibroProtocol:
+        for libro in self.libros:
+            if libro.titulo == titulo and libro.disponible:
+                return libro
+        raise LibroNoDisponibleError(f"Libro con título '{titulo}' no disponible")
